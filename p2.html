@@ -1,1050 +1,671 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>City Care Hospital</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f9fc;
-            color: #222;
-            line-height: 1.6;
-        }
-
-        /* ================= HEADER ================= */
-
-        header {
-            background: linear-gradient(135deg, #0275d8, #00a8cc);
-            color: white;
-            text-align: center;
-            padding: 35px 20px;
-        }
-
-        header h1 {
-            font-size: 38px;
-            margin-bottom: 8px;
-        }
-
-        header p {
-            font-size: 18px;
-        }
-
-        #hospitalGreeting {
-            margin-top: 15px;
-            color: white;
-            font-size: 17px;
-        }
-
-        /* ================= NAVIGATION ================= */
-
-        nav {
-            background: white;
-            text-align: center;
-            padding: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #0275d8;
-            font-weight: bold;
-            margin: 0 15px;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            color: #00a8cc;
-        }
-
-        /* ================= MAIN ================= */
-
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 35px auto;
-        }
-
-        .hero {
-            background: white;
-            padding: 35px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
-            margin-bottom: 30px;
-        }
-
-        .hero h2 {
-            color: #0275d8;
-            margin-bottom: 12px;
-        }
-
-        .hero p {
-            color: #555;
-            margin-bottom: 8px;
-        }
-
-        /* ================= SECTIONS ================= */
-
-        section {
-            background: white;
-            padding: 30px;
-            margin-bottom: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-        }
-
-        section h2 {
-            color: #0275d8;
-            margin-bottom: 15px;
-        }
-
-        /* ================= BUTTONS ================= */
-
-        button {
-            background: #0275d8;
-            color: white;
-            border: none;
-            padding: 11px 18px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-size: 15px;
-            margin: 5px;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #01579b;
-            transform: translateY(-2px);
-        }
-
-        /* ================= FACILITIES ================= */
-
-        .hidden-info {
-            display: none;
-            background: #eef7ff;
-            padding: 18px;
-            margin-top: 15px;
-            border-left: 4px solid #0275d8;
-            border-radius: 7px;
-        }
-
-        /* ================= DOCTORS ================= */
-
-        .doctor-buttons {
-            margin: 15px 0;
-        }
-
-        .doctor-box {
-            margin-top: 20px;
-            padding: 22px;
-            border: 1px solid #cfe4f5;
-            border-radius: 10px;
-            background: #f8fcff;
-        }
-
-        .doctor-box h3 {
-            color: #0275d8;
-            margin-bottom: 8px;
-        }
-
-        /* ================= DEPARTMENTS ================= */
-
-        .department-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .department-card {
-            background: #f4faff;
-            border: 1px solid #d8eaf7;
-            padding: 18px 10px;
-            text-align: center;
-            border-radius: 10px;
-            font-weight: bold;
-            color: #0275d8;
-            transition: 0.3s;
-        }
-
-        .department-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-        }
-
-        /* ================= BILL ================= */
-
-        .service-list {
-            margin-top: 15px;
-        }
-
-        .service-item {
-            display: block;
-            padding: 12px;
-            margin: 8px 0;
-            background: #f8fcff;
-            border: 1px solid #dcecf7;
-            border-radius: 7px;
-            cursor: pointer;
-        }
-
-        .service-item input {
-            width: auto;
-            margin-right: 8px;
-        }
-
-        .bill-result {
-            margin-top: 20px;
-            background: #eaf8ff;
-            padding: 20px;
-            border-left: 4px solid #0275d8;
-            border-radius: 7px;
-        }
-
-        #billTotal {
-            color: #0275d8;
-            font-size: 25px;
-        }
-
-        /* ================= FORM ================= */
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-        }
-
-        input,
-        select {
-            width: 100%;
-            max-width: 550px;
-            padding: 11px;
-            margin-top: 6px;
-            border: 1px solid #bbb;
-            border-radius: 6px;
-            font-size: 15px;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: #0275d8;
-            box-shadow: 0 0 5px rgba(2,117,216,0.2);
-        }
-
-        /* ================= STATUS ================= */
-
-        .error {
-            color: #d93025;
-            font-weight: bold;
-        }
-
-        .success {
-            color: #168b36;
-            font-weight: bold;
-        }
-
-        #appointmentStatus {
-            margin-top: 15px;
-        }
-
-        /* ================= EMERGENCY ================= */
-
-        .emergency {
-            background: #fff5f5;
-            border-left: 5px solid #dc3545;
-        }
-
-        .emergency h2 {
-            color: #dc3545;
-        }
-
-        .emergency-number {
-            font-size: 25px;
-            font-weight: bold;
-            color: #dc3545;
-            margin-top: 10px;
-        }
-
-        /* ================= FOOTER ================= */
-
-        footer {
-            background: #063b61;
-            color: white;
-            text-align: center;
-            padding: 25px;
-            margin-top: 40px;
-        }
-
-        footer p {
-            margin: 5px;
-        }
-
-        /* ================= RESPONSIVE ================= */
-
-        @media (max-width: 850px) {
-
-            header h1 {
-                font-size: 30px;
-            }
-
-            nav a {
-                display: inline-block;
-                margin: 6px 8px;
-            }
-
-            .department-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-        }
-
-        @media (max-width: 500px) {
-
-            .container {
-                width: 94%;
-            }
-
-            section,
-            .hero {
-                padding: 20px;
-            }
-
-            .department-grid {
-                grid-template-columns: 1fr;
-            }
-
-            nav a {
-                display: block;
-                margin: 8px;
-            }
-
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>City Care Hospital</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+:root {
+  --primary:#102c54;
+  --secondary:#1769aa;
+  --accent:#f5a623;
+  --light:#f4f7fb;
+  --dark:#172337;
+  --white:#ffffff;
+}
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+body {
+  font-family:Arial, sans-serif;
+  background:var(--light);
+  color:var(--dark);
+  line-height:1.6;
+}
+header {
+  background:var(--primary);
+  color:white;
+  padding:15px 7%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.logo {
+  font-size:23px;
+  font-weight:bold;
+}
+.logo span {color:var(--accent);}
+nav {
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+}
+nav a {
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:bold;
+}
+nav a:hover {color:var(--accent);}
+.hero {
+  min-height:430px;
+  background:linear-gradient(#102c54c9,#102c54d9),
+  url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1600");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  padding:50px 8%;
+  color:white;
+}
+.hero-content {max-width:650px;}
+.hero-greeting {
+  color:var(--accent);
+  font-weight:bold;
+  font-size:16px;
+  margin-bottom:10px;
+}
+.hero h1 {
+  font-size:43px;
+  line-height:1.2;
+  margin-bottom:18px;
+}
+.hero p {font-size:17px;margin-bottom:25px;}
+.btn {
+  display:inline-block;
+  background:var(--accent);
+  color:#172337;
+  border:0;
+  padding:11px 22px;
+  border-radius:5px;
+  text-decoration:none;
+  cursor:pointer;
+  font-weight:bold;
+  margin:4px;
+}
+.btn:hover {background:#ffd078;}
+section {padding:55px 8%;}
+.section-title {
+  text-align:center;
+  color:var(--primary);
+  font-size:30px;
+  margin-bottom:12px;
+}
+.section-desc {
+  text-align:center;
+  max-width:700px;
+  margin:0 auto 30px;
+  color:#657184;
+}
+.stats {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:18px;
+  margin-top:-35px;
+  padding:0 8%;
+}
+.stat {
+  background:white;
+  padding:25px;
+  text-align:center;
+  border-radius:9px;
+  box-shadow:0 5px 18px #00000012;
+}
+.stat h2 {color:var(--secondary);font-size:30px;}
+.stat p {color:#667085;}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:22px;
+}
+.card {
+  background:white;
+  border-radius:9px;
+  overflow:hidden;
+  box-shadow:0 5px 18px #00000012;
+}
+.card img {
+  width:100%;
+  height:165px;
+  object-fit:cover;
+}
+.card-content {padding:20px;}
+.card h3 {color:var(--primary);margin-bottom:9px;}
+.card p {color:#657184;font-size:14px;}
+.about {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:35px;
+  align-items:center;
+}
+.about img {
+  width:100%;
+  border-radius:10px;
+}
+.about h2 {
+  color:var(--primary);
+  font-size:29px;
+  margin-bottom:15px;
+}
+.about p {margin-bottom:12px;color:#657184;}
+.light-section {background:white;}
+.facility {
+  background:var(--primary);
+  color:white;
+  padding:22px;
+  border-radius:8px;
+  text-align:center;
+}
+.facility h3 {margin-bottom:8px;color:var(--accent);}
+.form-box {
+  max-width:750px;
+  margin:auto;
+  background:white;
+  padding:25px;
+  border-radius:10px;
+  box-shadow:0 5px 20px #00000012;
+}
+.form-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+input,select,textarea {
+  width:100%;
+  padding:11px;
+  border:1px solid #ccd3df;
+  border-radius:5px;
+  margin:7px 0;
+  font:inherit;
+}
+textarea {min-height:90px;}
+button {font:inherit;}
+.output {
+  background:#edf4fc;
+  border-left:4px solid var(--secondary);
+  padding:15px;
+  margin-top:15px;
+  border-radius:5px;
+  overflow-wrap:anywhere;
+}
+.patient-tools {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:18px;
+}
+.tool {
+  background:white;
+  padding:20px;
+  border-radius:9px;
+  box-shadow:0 4px 15px #00000012;
+}
+.tool h3 {color:var(--primary);margin-bottom:10px;}
+.tool button {margin:4px 2px;}
+table {
+  width:100%;
+  border-collapse:collapse;
+  margin-top:12px;
+  background:white;
+}
+th,td {
+  border:1px solid #ccd3df;
+  padding:9px;
+  text-align:left;
+}
+th {background:var(--primary);color:white;}
+.service-item {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px;
+  margin:8px 0;
+  background:var(--light);
+  border:1px solid #ccd3df;
+  border-radius:5px;
+  cursor:pointer;
+}
+.service-item input {
+  width:auto;
+  margin:0;
+}
+.news-item {
+  background:white;
+  padding:18px;
+  border-left:4px solid var(--accent);
+  margin:12px 0;
+  border-radius:5px;
+}
+.emergency-item {
+  background:#fff5f5;
+  border-left:4px solid #dc3545;
+}
+.emergency-item h3 {color:#dc3545;}
+.error {color:#d93025;font-weight:bold;}
+.success {color:#168b36;font-weight:bold;}
+footer {
+  background:#0b1e38;
+  color:white;
+  padding:35px 8%;
+  text-align:center;
+}
+footer p {color:#cbd5e1;margin:8px;}
+@media(max-width:750px) {
+  header {justify-content:center;gap:15px;}
+  nav {justify-content:center;}
+  .hero h1 {font-size:32px;}
+  .about {grid-template-columns:1fr;}
+  .form-grid {grid-template-columns:1fr;}
+  section {padding:40px 5%;}
+}
+</style>
 </head>
-
-
 <body>
+<header>
+  <div class="logo">CITY CARE <span>HOSPITAL</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#departments">Departments</a>
+    <a href="#facilities">Facilities</a>
+    <a href="#patient">Patient Corner</a>
+    <a href="#billing">Bill Estimator</a>
+    <a href="#appointment">Appointment</a>
+  </nav>
+</header>
 
+<div class="hero" id="home">
+  <div class="hero-content">
+    <div id="hospitalGreeting" class="hero-greeting"></div>
+    <h1>Quality Healthcare For Everyone</h1>
+    <p>
+      Welcome to City Care Hospital. Modern healthcare facilities
+      with experienced doctors and compassionate medical care.
+    </p>
+    <a href="#departments" class="btn">Explore Departments</a>
+    <a href="#appointment" class="btn">Book Appointment</a>
+  </div>
+</div>
 
-    <!-- ================= HEADER ================= -->
+<div class="stats">
+  <div class="stat"><h2>20+</h2><p>Years of Care</p></div>
+  <div class="stat"><h2>50K+</h2><p>Patients Treated</p></div>
+  <div class="stat"><h2>80+</h2><p>Specialist Doctors</p></div>
+  <div class="stat"><h2>24/7</h2><p>Emergency Support</p></div>
+</div>
 
-    <header>
+<section id="about" class="light-section">
+  <div class="about">
+    <div>
+      <h2>About Our Hospital</h2>
+      <p>
+        City Care Hospital provides modern healthcare facilities
+        with experienced doctors and trained medical staff.
+      </p>
+      <p>
+        We are committed to providing safe, accessible,
+        and quality healthcare services to every patient.
+      </p>
+      <p>
+        Our patient-first approach combines clinical expertise
+        with advanced diagnostic technology.
+      </p>
+      <a href="#appointment" class="btn">Book an Appointment</a>
+    </div>
+    <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=900" alt="Hospital campus">
+  </div>
+</section>
 
-        <h1>City Care Hospital</h1>
+<section id="departments">
+  <h2 class="section-title">Our Departments</h2>
+  <p class="section-desc">Explore our specialized medical departments and clinical care units.</p>
+  <div class="grid">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600" alt="Cardiology">
+      <div class="card-content">
+        <h3>Cardiology</h3>
+        <p>Comprehensive heart care, diagnostics, and preventive cardiology.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600" alt="Neurology">
+      <div class="card-content">
+        <h3>Neurology</h3>
+        <p>Advanced diagnosis and treatment for brain and nervous system disorders.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=600" alt="Orthopedics">
+      <div class="card-content">
+        <h3>Orthopedics</h3>
+        <p>Bone, joint, spine care, and minimally invasive surgical treatments.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <p>Quality Healthcare for Everyone</p>
+<section id="specialties" class="light-section">
+  <h2 class="section-title">Medical Services</h2>
+  <p class="section-desc">Dedicated units supporting complete patient recovery.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="card-content">
+        <h3>General Medicine</h3>
+        <p>Primary care, preventive health checkups, and chronic illness management.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <h3>Pediatrics</h3>
+        <p>Specialized healthcare and wellness programs for infants and children.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <h3>Diagnostics</h3>
+        <p>NABL accredited pathology lab, digital X-Ray, and MRI scanning.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <h3>Trauma & ICU</h3>
+        <p>Round-the-clock critical care and rapid emergency response teams.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- Task 2: Dynamic Greeting -->
+<section id="facilities">
+  <h2 class="section-title">Hospital Facilities</h2>
+  <p class="section-desc">Infrastructure built for patient safety and rapid treatment.</p>
+  <div class="grid">
+    <div class="facility"><h3>24/7 ICU</h3><p>Critical care and trauma center support.</p></div>
+    <div class="facility"><h3>Pathology Lab</h3><p>NABL accredited diagnostic testing.</p></div>
+    <div class="facility"><h3>MRI & CT Scan</h3><p>High-precision imaging facilities.</p></div>
+    <div class="facility"><h3>Operation Theaters</h3><p>5 modern sterile surgical suites.</p></div>
+  </div>
+</section>
 
-        <h3 id="hospitalGreeting"></h3>
+<section id="patient" class="light-section">
+  <h2 class="section-title">Patient Corner</h2>
+  <p class="section-desc">Interactive hospital portals, XML records, jQuery, and AJAX demos.</p>
+  <div class="patient-tools">
+    <div class="tool">
+      <h3>Dynamic Patient Portal</h3>
+      <p>Enter patient name for a custom check-in message.</p>
+      <input id="visitorName" placeholder="Enter patient name">
+      <button class="btn" onclick="greetPatient()">Greet</button>
+      <button class="btn" onclick="changeCardText()">Update</button>
+      <button class="btn" onclick="changeThemeColor()">Tint</button>
+      <div class="output">
+        <h3 id="dynamicHeading">Welcome Patient</h3>
+        <p id="dynamicMessage">Your check-in status will appear here.</p>
+      </div>
+    </div>
+    <div class="tool">
+      <h3>Specialist Doctors On Duty</h3>
+      <p>Select a department to view the head specialist.</p>
+      <button class="btn" onclick="changeDoctor('Dr. Rajesh Sharma','Cardiologist','10:00 AM - 02:00 PM')">Cardiology</button>
+      <button class="btn" onclick="changeDoctor('Dr. Sunita Rao','Neurologist','01:00 PM - 05:00 PM')">Neurology</button>
+      <button class="btn" onclick="changeDoctor('Dr. Anil Verma','Orthopedic Surgeon','09:00 AM - 01:00 PM')">Orthopedics</button>
+      <div class="output">
+        <h3 id="docName">Dr. Rajesh Sharma</h3>
+        <p id="docSpec">Specialization: Cardiologist</p>
+        <p id="docTime">Timings: 10:00 AM - 02:00 PM</p>
+      </div>
+    </div>
+    <div class="tool">
+      <h3>XML Patient Records</h3>
+      <p>Display admitted patient records stored in XML.</p>
+      <button class="btn" onclick="loadPatients()">Load Patients</button>
+      <div id="patientOutput" class="output">Patient records will appear here.</div>
+    </div>
+    <div class="tool">
+      <h3>XML Pharmacy Price List</h3>
+      <p>Display medicines and prices from XML data.</p>
+      <button class="btn" onclick="loadMedicines()">Load Medicines</button>
+      <div id="medicineOutput" class="output">Pharmacy items will appear here.</div>
+    </div>
+    <div class="tool">
+      <h3>jQuery Show & Hide</h3>
+      <p id="jqueryInfo">24/7 ICU, NABL Lab, MRI & CT Scan, and 5 Operation Theaters.</p>
+      <button class="btn" id="hideBtn">Hide</button>
+      <button class="btn" id="showBtn">Show</button>
+    </div>
+    <div class="tool">
+      <h3>jQuery Notice Style</h3>
+      <h3 id="jqueryHeading">OPD Registration Open</h3>
+      <button class="btn" id="updateBtn">Highlight Notice</button>
+    </div>
+    <div class="tool">
+      <h3>AJAX Health Advisory</h3>
+      <p>Load hospital advisory asynchronously without reload.</p>
+      <button class="btn" onclick="loadAdvisory()">Load Advisory</button>
+      <div id="ajaxMessage" class="output">Advisory will appear here.</div>
+    </div>
+    <div class="tool">
+      <h3>AJAX Duty Roster</h3>
+      <p>Load medical staff roster from JSON data.</p>
+      <button class="btn" onclick="loadStaff()">Load Staff</button>
+      <div id="staffOutput"></div>
+    </div>
+  </div>
+</section>
 
-    </header>
+<section id="billing">
+  <h2 class="section-title">Medical Bill Estimator</h2>
+  <p class="section-desc">Select the required medical services to calculate the estimated total charge.</p>
+  <div class="form-box">
+    <label class="service-item">
+      <input type="checkbox" id="chkConsult" value="500" onchange="calculateBill()">
+      Doctor Consultation — Rs. 500
+    </label>
+    <label class="service-item">
+      <input type="checkbox" id="chkBlood" value="300" onchange="calculateBill()">
+      Blood Test — Rs. 300
+    </label>
+    <label class="service-item">
+      <input type="checkbox" id="chkXray" value="700" onchange="calculateBill()">
+      X-Ray — Rs. 700
+    </label>
+    <label class="service-item">
+      <input type="checkbox" id="chkMRI" value="2500" onchange="calculateBill()">
+      MRI Scan — Rs. 2,500
+    </label>
+    <div id="billResult" class="output">
+      <strong>Estimated Total Charge: Rs. <span id="billTotal">0</span></strong>
+    </div>
+  </div>
+</section>
 
-
-    <!-- ================= NAVIGATION ================= -->
-
-    <nav>
-
-        <a href="#home">Home</a>
-        <a href="#facilities">Facilities</a>
-        <a href="#doctors">Doctors</a>
-        <a href="#departments">Departments</a>
-        <a href="#billing">Bill Estimator</a>
-        <a href="#appointment">Appointment</a>
-
-    </nav>
-
-
-    <main class="container">
-
-
-        <!-- ================= HOME ================= -->
-
-        <div class="hero" id="home">
-
-            <h2>Welcome to City Care Hospital</h2>
-
-            <p>
-                City Care Hospital provides modern healthcare facilities
-                with experienced doctors and trained medical staff.
-            </p>
-
-            <p>
-                We are committed to providing safe, accessible and
-                quality healthcare services to patients.
-            </p>
-
+<section id="appointment" class="light-section">
+  <h2 class="section-title">Book Patient Appointment</h2>
+  <p class="section-desc">Enter the patient details below to book an appointment.</p>
+  <div class="form-box">
+    <form id="appointmentForm">
+      <div class="form-grid">
+        <div>
+          <label>Patient Name</label>
+          <input type="text" id="patientName" placeholder="Enter patient name">
         </div>
-
-
-        <!-- ================= TASK 4 ================= -->
-
-        <section id="facilities">
-
-            <h2>Hospital Accreditation & Facilities</h2>
-
-            <p>
-                Our hospital provides advanced medical facilities
-                supported by trained healthcare professionals.
-            </p>
-
-            <button onclick="toggleHospitalInfo()">
-                Show Special Facilities
-            </button>
-
-            <div id="moreHospitalInfo" class="hidden-info">
-
-                <p>
-                    <strong>Facilities:</strong>
-                    24/7 ICU & Trauma Center,
-                    NABL Accredited Pathology Lab,
-                    Advanced MRI & CT Scan,
-                    and 5 Operation Theaters.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= TASK 5 ================= -->
-
-        <section id="doctors">
-
-            <h2>Specialist Doctors On Duty</h2>
-
-            <p>
-                Select a department to view the head specialist.
-            </p>
-
-            <div class="doctor-buttons">
-
-                <button onclick="changeDoctor(
-                    'Dr. Rajesh Sharma',
-                    'Cardiologist',
-                    '10:00 AM - 02:00 PM'
-                )">
-                    Cardiology
-                </button>
-
-                <button onclick="changeDoctor(
-                    'Dr. Sunita Rao',
-                    'Neurologist',
-                    '01:00 PM - 05:00 PM'
-                )">
-                    Neurology
-                </button>
-
-                <button onclick="changeDoctor(
-                    'Dr. Anil Verma',
-                    'Orthopedic Surgeon',
-                    '09:00 AM - 01:00 PM'
-                )">
-                    Orthopedics
-                </button>
-
-            </div>
-
-
-            <div class="doctor-box">
-
-                <h3 id="docName">
-                    Dr. Rajesh Sharma
-                </h3>
-
-                <p id="docSpec">
-                    Specialization: Cardiologist
-                </p>
-
-                <p id="docTime">
-                    Timings: 10:00 AM - 02:00 PM
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= DEPARTMENTS ================= -->
-
-        <section id="departments">
-
-            <h2>Our Departments</h2>
-
-            <div class="department-grid">
-
-                <div class="department-card">
-                    Cardiology
-                </div>
-
-                <div class="department-card">
-                    Neurology
-                </div>
-
-                <div class="department-card">
-                    Orthopedics
-                </div>
-
-                <div class="department-card">
-                    General Medicine
-                </div>
-
-                <div class="department-card">
-                    Pediatrics
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= TASK 3 ================= -->
-
-        <section id="billing">
-
-            <h2>Medical Bill Estimator</h2>
-
-            <p>
-                Select the required medical services to calculate
-                the estimated total charge.
-            </p>
-
-
-            <div class="service-list">
-
-                <label class="service-item">
-
-                    <input
-                        type="checkbox"
-                        id="chkConsult"
-                        value="500"
-                        onchange="calculateBill()"
-                    >
-
-                    Doctor Consultation
-                    — ₹500
-
-                </label>
-
-
-                <label class="service-item">
-
-                    <input
-                        type="checkbox"
-                        id="chkBlood"
-                        value="300"
-                        onchange="calculateBill()"
-                    >
-
-                    Blood Test
-                    — ₹300
-
-                </label>
-
-
-                <label class="service-item">
-
-                    <input
-                        type="checkbox"
-                        id="chkXray"
-                        value="700"
-                        onchange="calculateBill()"
-                    >
-
-                    X-Ray
-                    — ₹700
-
-                </label>
-
-
-                <label class="service-item">
-
-                    <input
-                        type="checkbox"
-                        id="chkMRI"
-                        value="2500"
-                        onchange="calculateBill()"
-                    >
-
-                    MRI Scan
-                    — ₹2,500
-
-                </label>
-
-            </div>
-
-
-            <div class="bill-result">
-
-                <h3>
-                    Estimated Total Charge:
-                    ₹<span id="billTotal">0</span>
-                </h3>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= TASK 1 ================= -->
-
-        <section id="appointment">
-
-            <h2>Book Patient Appointment</h2>
-
-            <p>
-                Enter the patient details below to book an appointment.
-            </p>
-
-            <br>
-
-
-            <form id="appointmentForm">
-
-
-                <div class="form-group">
-
-                    <label>
-                        Patient Name:
-                    </label>
-
-                    <input
-                        type="text"
-                        id="patientName"
-                        placeholder="Enter patient name"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Email:
-                    </label>
-
-                    <input
-                        type="text"
-                        id="patientEmail"
-                        placeholder="example@gmail.com"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Mobile Number:
-                    </label>
-
-                    <input
-                        type="text"
-                        id="patientMobile"
-                        placeholder="Enter 10 digit mobile number"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Age:
-                    </label>
-
-                    <input
-                        type="number"
-                        id="patientAge"
-                        placeholder="Enter patient age"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Appointment Date:
-                    </label>
-
-                    <input
-                        type="date"
-                        id="appointmentDate"
-                    >
-
-                </div>
-
-
-                <button type="submit">
-                    Book Appointment
-                </button>
-
-            </form>
-
-
-            <p id="appointmentStatus"></p>
-
-        </section>
-
-
-        <!-- ================= EMERGENCY ================= -->
-
-        <section class="emergency">
-
-            <h2>Emergency Services</h2>
-
-            <p>
-                Emergency services are available 24 hours a day,
-                7 days a week.
-            </p>
-
-            <p class="emergency-number">
-                Emergency Contact: 9876543210
-            </p>
-
-        </section>
-
-
-    </main>
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer>
-
-        <p>
-            © 2026 City Care Hospital
-        </p>
-
-        <p>
-            Quality Healthcare for Everyone
-        </p>
-
-    </footer>
-
-
-    <!-- ================= JAVASCRIPT ================= -->
-
-    <script>
-
-
-        /* =========================================
-           TASK 2: DYNAMIC GREETING
-        ========================================= */
-
-        window.onload = function() {
-
-            let hour = new Date().getHours();
-
-            let greeting = "";
-
-            if (hour < 12) {
-
-                greeting =
-                    "Good Morning! Welcome to City Care Hospital.";
-
-            }
-
-            else if (hour < 18) {
-
-                greeting =
-                    "Good Afternoon! Welcome to City Care Hospital.";
-
-            }
-
-            else {
-
-                greeting =
-                    "Good Evening! Welcome to City Care Hospital.";
-
-            }
-
-            document.getElementById(
-                "hospitalGreeting"
-            ).innerText = greeting;
-
-        };
-
-
-        /* =========================================
-           TASK 4: SHOW / HIDE CONTENT
-        ========================================= */
-
-        function toggleHospitalInfo() {
-
-            let info =
-                document.getElementById(
-                    "moreHospitalInfo"
-                );
-
-            if (info.style.display === "block") {
-
-                info.style.display = "none";
-
-            }
-
-            else {
-
-                info.style.display = "block";
-
-            }
-
-        }
-
-
-        /* =========================================
-           TASK 5: DYNAMIC DOCTOR CONTENT
-        ========================================= */
-
-        function changeDoctor(name, spec, time) {
-
-            document.getElementById(
-                "docName"
-            ).innerText = name;
-
-            document.getElementById(
-                "docSpec"
-            ).innerText =
-                "Specialization: " + spec;
-
-            document.getElementById(
-                "docTime"
-            ).innerText =
-                "Timings: " + time;
-
-        }
-
-
-        /* =========================================
-           TASK 3: DYNAMIC BILL CALCULATION
-        ========================================= */
-
-        function calculateBill() {
-
-            let total = 0;
-
-
-            if (
-                document.getElementById(
-                    "chkConsult"
-                ).checked
-            ) {
-
-                total += 500;
-
-            }
-
-
-            if (
-                document.getElementById(
-                    "chkBlood"
-                ).checked
-            ) {
-
-                total += 300;
-
-            }
-
-
-            if (
-                document.getElementById(
-                    "chkXray"
-                ).checked
-            ) {
-
-                total += 700;
-
-            }
-
-
-            if (
-                document.getElementById(
-                    "chkMRI"
-                ).checked
-            ) {
-
-                total += 2500;
-
-            }
-
-
-            document.getElementById(
-                "billTotal"
-            ).innerText =
-                total.toLocaleString("en-IN");
-
-        }
-
-
-        /* =========================================
-           TASK 1: APPOINTMENT FORM VALIDATION
-        ========================================= */
-
-        document
-            .getElementById("appointmentForm")
-            .addEventListener(
-                "submit",
-                function(event) {
-
-                    event.preventDefault();
-
-
-                    let name =
-                        document.getElementById(
-                            "patientName"
-                        ).value.trim();
-
-
-                    let email =
-                        document.getElementById(
-                            "patientEmail"
-                        ).value.trim();
-
-
-                    let mobile =
-                        document.getElementById(
-                            "patientMobile"
-                        ).value.trim();
-
-
-                    let age =
-                        document.getElementById(
-                            "patientAge"
-                        ).value.trim();
-
-
-                    let date =
-                        document.getElementById(
-                            "appointmentDate"
-                        ).value;
-
-
-                    let status =
-                        document.getElementById(
-                            "appointmentStatus"
-                        );
-
-
-                    /* NAME */
-
-                    if (name === "") {
-
-                        status.innerHTML =
-                            "<span class='error'>" +
-                            "Please enter patient name." +
-                            "</span>";
-
-                        return;
-
-                    }
-
-
-                    /* EMAIL */
-
-                    if (
-                        !email.includes("@") ||
-                        !email.includes(".")
-                    ) {
-
-                        status.innerHTML =
-                            "<span class='error'>" +
-                            "Please enter a valid email address." +
-                            "</span>";
-
-                        return;
-
-                    }
-
-
-                    /* MOBILE */
-
-                    if (
-                        mobile.length !== 10 ||
-                        isNaN(mobile)
-                    ) {
-
-                        status.innerHTML =
-                            "<span class='error'>" +
-                            "Mobile number must be 10 numeric digits." +
-                            "</span>";
-
-                        return;
-
-                    }
-
-
-                    /* AGE */
-
-                    if (
-                        age < 1 ||
-                        age > 110 ||
-                        isNaN(age)
-                    ) {
-
-                        status.innerHTML =
-                            "<span class='error'>" +
-                            "Please enter a valid age." +
-                            "</span>";
-
-                        return;
-
-                    }
-
-
-                    /* DATE */
-
-                    if (date === "") {
-
-                        status.innerHTML =
-                            "<span class='error'>" +
-                            "Please select an appointment date." +
-                            "</span>";
-
-                        return;
-
-                    }
-
-
-                    /* SUCCESS */
-
-                    status.innerHTML =
-                        "<span class='success'>" +
-                        "✓ Appointment Booked Successfully!" +
-                        "</span>";
-
-                }
-            );
-
-    </script>
-
-
+        <div>
+          <label>Email Address</label>
+          <input type="text" id="patientEmail" placeholder="example@gmail.com">
+        </div>
+        <div>
+          <label>Mobile Number</label>
+          <input type="text" id="patientMobile" placeholder="Enter 10 digit mobile number">
+        </div>
+        <div>
+          <label>Patient Age</label>
+          <input type="number" id="patientAge" placeholder="Enter patient age">
+        </div>
+      </div>
+      <label>Appointment Date</label>
+      <input type="date" id="appointmentDate">
+      <button class="btn" type="submit">Book Appointment</button>
+    </form>
+    <div id="appointmentStatus" class="output" hidden></div>
+  </div>
+</section>
+
+<section id="emergency">
+  <h2 class="section-title">Emergency & Hospital Updates</h2>
+  <p class="section-desc">24/7 emergency helpline and patient announcements.</p>
+  <div class="news-item emergency-item">
+    <h3>24/7 Emergency Services</h3>
+    <p>Available 24 hours a day, 7 days a week. <strong>Emergency Contact: +91 98765 43210</strong></p>
+  </div>
+  <div class="news-item">
+    <h3>Free Health Checkup Camp</h3>
+    <p>General physician consultations and basic blood screening every Sunday morning.</p>
+  </div>
+  <div class="news-item">
+    <h3>Online Report Access</h3>
+    <p>NABL pathology and radiology reports are available digitally within 24 hours.</p>
+  </div>
+</section>
+
+<footer>
+  <h2>City Care Hospital</h2>
+  <p>Compassion | Care | Excellence</p>
+  <p>Email: care@citycarehospital.example</p>
+  <p>Emergency Helpline: +91 98765 43210</p>
+  <p>© 2026 City Care Hospital. All Rights Reserved.</p>
+</footer>
+
+<script>
+window.onload = function() {
+  let hour = new Date().getHours();
+  let greeting = hour < 12 ? "Good Morning! Welcome to City Care Hospital." :
+                 hour < 18 ? "Good Afternoon! Welcome to City Care Hospital." :
+                             "Good Evening! Welcome to City Care Hospital.";
+  document.getElementById("hospitalGreeting").textContent = greeting;
+};
+
+function greetPatient() {
+  let name = document.getElementById("visitorName").value.trim();
+  document.getElementById("dynamicMessage").textContent =
+    name ? "Hello " + name + "! Your OPD token is ready." : "Please enter patient name.";
+}
+function changeCardText() {
+  document.getElementById("dynamicHeading").textContent = "Check-In Confirmed!";
+  document.getElementById("dynamicMessage").textContent = "Please proceed to the ground floor reception.";
+}
+function changeThemeColor() {
+  document.body.style.backgroundColor = "#dceeff";
+}
+function changeDoctor(name, spec, time) {
+  document.getElementById("docName").textContent = name;
+  document.getElementById("docSpec").textContent = "Specialization: " + spec;
+  document.getElementById("docTime").textContent = "Timings: " + time;
+}
+
+const patientXML = `<patients>
+  <patient><id>P101</id><name>Rohan</name><ward>Cardiology</ward></patient>
+  <patient><id>P102</id><name>Sneha</name><ward>Neurology</ward></patient>
+  <patient><id>P103</id><name>Vikram</name><ward>Orthopedics</ward></patient>
+</patients>`;
+
+const medicineXML = `<medicines>
+  <item><name>Paracetamol</name><price>45</price></item>
+  <item><name>Vitamin D3</name><price>220</price></item>
+  <item><name>First Aid Kit</name><price>550</price></item>
+</medicines>`;
+
+function loadPatients() {
+  let xml = new DOMParser().parseFromString(patientXML, "text/xml");
+  let list = xml.getElementsByTagName("patient");
+  let html = "<table><tr><th>ID</th><th>Name</th><th>Ward</th></tr>";
+  for (let p of list) {
+    html += "<tr><td>" + p.querySelector("id").textContent + "</td><td>" +
+      p.querySelector("name").textContent + "</td><td>" +
+      p.querySelector("ward").textContent + "</td></tr>";
+  }
+  document.getElementById("patientOutput").innerHTML = html + "</table>";
+}
+
+function loadMedicines() {
+  let xml = new DOMParser().parseFromString(medicineXML, "text/xml");
+  let list = xml.getElementsByTagName("item");
+  let html = "<table><tr><th>Medicine</th><th>Price</th></tr>";
+  for (let m of list) {
+    html += "<tr><td>" + m.querySelector("name").textContent + "</td><td>Rs. " +
+      m.querySelector("price").textContent + "</td></tr>";
+  }
+  document.getElementById("medicineOutput").innerHTML = html + "</table>";
+}
+
+$(document).ready(function() {
+  $("#hideBtn").click(function() { $("#jqueryInfo").hide(); });
+  $("#showBtn").click(function() { $("#jqueryInfo").show(); });
+  $("#updateBtn").click(function() {
+    $("#jqueryHeading").text("Emergency & OPD Active 24/7!").css({"color":"#1769aa","font-size":"22px"});
+  });
+});
+
+const advisoryText = "Health Advisory: Stay hydrated and carry previous prescriptions during OPD visits.";
+const staffData = [
+  {id:1,name:"Dr. Nair",dept:"ICU"},
+  {id:2,name:"Nurse Kavita",dept:"Emergency"},
+  {id:3,name:"Dr. Mehta",dept:"Pathology"}
+];
+const textURL = URL.createObjectURL(new Blob([advisoryText], {type:"text/plain"}));
+const jsonURL = URL.createObjectURL(new Blob([JSON.stringify(staffData)], {type:"application/json"}));
+
+async function loadAdvisory() {
+  try {
+    let res = await fetch(textURL);
+    document.getElementById("ajaxMessage").textContent = await res.text();
+  } catch(e) {
+    document.getElementById("ajaxMessage").textContent = e.message;
+  }
+}
+
+async function loadStaff() {
+  try {
+    let res = await fetch(jsonURL);
+    let data = await res.json();
+    let html = "<table><tr><th>ID</th><th>Name</th><th>Unit</th></tr>";
+    data.forEach(s => { html += "<tr><td>" + s.id + "</td><td>" + s.name + "</td><td>" + s.dept + "</td></tr>"; });
+    document.getElementById("staffOutput").innerHTML = html + "</table>";
+  } catch(e) {
+    document.getElementById("staffOutput").textContent = e.message;
+  }
+}
+
+function calculateBill() {
+  let total = 0;
+  if (document.getElementById("chkConsult").checked) total += 500;
+  if (document.getElementById("chkBlood").checked) total += 300;
+  if (document.getElementById("chkXray").checked) total += 700;
+  if (document.getElementById("chkMRI").checked) total += 2500;
+  document.getElementById("billTotal").textContent = total.toLocaleString("en-IN");
+}
+
+document.getElementById("appointmentForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  let name = document.getElementById("patientName").value.trim();
+  let email = document.getElementById("patientEmail").value.trim();
+  let mobile = document.getElementById("patientMobile").value.trim();
+  let age = document.getElementById("patientAge").value.trim();
+  let date = document.getElementById("appointmentDate").value;
+  let status = document.getElementById("appointmentStatus");
+  status.hidden = false;
+
+  if (!name) { status.innerHTML = "<span class='error'>Please enter patient name.</span>"; return; }
+  if (!email.includes("@") || !email.includes(".")) { status.innerHTML = "<span class='error'>Please enter a valid email.</span>"; return; }
+  if (!/^[0-9]{10}$/.test(mobile)) { status.innerHTML = "<span class='error'>Mobile number must be 10 digits.</span>"; return; }
+  if (!age || age < 1 || age > 110 || isNaN(age)) { status.innerHTML = "<span class='error'>Please enter a valid age.</span>"; return; }
+  if (!date) { status.innerHTML = "<span class='error'>Please select an appointment date.</span>"; return; }
+
+  status.innerHTML = "<span class='success'>✓ Appointment Booked Successfully for " + name + "!</span>";
+  this.reset();
+});
+</script>
 </body>
-
 </html>
-```
